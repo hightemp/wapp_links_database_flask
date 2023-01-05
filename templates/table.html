@@ -1,0 +1,73 @@
+{% import "macros.html" as macros %}
+{% include "b_header.html" %}
+
+<div class="table-wrapper">
+    <div class="nav-panel">
+        <a href="/" class="btn btn-primary"><i class="bi bi-house"></i></a>
+        <a href="/as_table" class="btn btn-primary"><i class="bi bi-table"></i></a>
+    </div>
+    <div class="grid-table-wrapper">
+        <div class="grid-table-pagination">
+            <nav aria-label="Page navigation example" class="pagination-nav">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">
+                            <i class="bi bi-chevron-bar-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="?page={{oR.oLinks.get_page()-1}}">
+                        <i class="bi bi-chevron-compact-left"></i>
+                    </a></li>
+                    <li class="page-item page-number">
+                        <div><input type="text" class="form-control text-field-right" value="{{oR.oLinks.get_page()}}"></div>
+                        <div>/ {{oR.oLinks.get_page_count()}}</div>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="?page={{oR.oLinks.get_page()+1}}">
+                        <i class="bi bi-chevron-compact-right"></i>
+                    </a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{oR.oLinks.get_page_count()}}">
+                            <i class="bi bi-chevron-bar-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="grid-table">
+            <div class="grid-table-row">
+                <div class="grid-table-cell header-cell">Группа</div>
+                <div class="grid-table-cell header-cell">Категория</div>
+                <div class="grid-table-cell header-cell">Название</div>
+                <div class="grid-table-cell header-cell">url</div>
+                <div class="grid-table-cell header-cell"></div>
+            </div>
+            <div class="grid-table-row">
+                <div class="grid-table-cell header-cell"><input class="form-control" type="text" name="filter-group"></div>
+                <div class="grid-table-cell header-cell"><input class="form-control" type="text" name="filter-category"></div>
+                <div class="grid-table-cell header-cell"><input class="form-control" type="text" name="filter-name"></div>
+                <div class="grid-table-cell header-cell"><input class="form-control" type="text" name="filter-url"></div>
+                <div class="grid-table-cell header-cell"></div>
+            </div>
+            {% for oLink in oR.oLinks.get_object_list() %}
+            <div class="grid-table-row">
+                <div class="grid-table-cell">{{oLink.category.group.name}}</div>
+                <div class="grid-table-cell">{{oLink.category.name}}</div>
+                <div class="grid-table-cell">{{oLink.name}}</div>
+                <div class="grid-table-cell">{{oLink.a_url}}</div>
+                <div class="grid-table-cell">
+                    <form action="/">
+                        <input type="hidden" name="select-link" value="{{oLink.id}}">
+                        <button class="btn btn-secondary" title="" type="submit" name="edit-link" value="1"><i class="bi bi-pencil"></i></button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="grid-table-item-preview">
+
+    </div>
+</div>
+
+
+{% include "b_footer.html" %}

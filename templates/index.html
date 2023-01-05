@@ -1,0 +1,26 @@
+{% import "macros.html" as macros %}
+{% include "b_header.html" %}
+
+<form action="">
+
+{{ macros.form_hidden_fields(oR.oArgs) }}
+
+<div class="wrapper">
+    <div class="nav-panel">
+        <a href="/" class="btn btn-primary"><i class="bi bi-house"></i></a>
+        <a href="/as_table" class="btn btn-primary"><i class="bi bi-table"></i></a>
+    </div>
+    {{ macros.list_panel(oR.aGroups, oR.sSelectGroup, "group", oR.sGroupFilter) }}
+    {% if oR.sSelectGroup %}
+    {{ macros.tree_panel(oR.aCategories, oR.sSelectCategory, "category", oR.aOpenedCategories, oR.sCategoryFilter) }}
+        {% if oR.sSelectCategory %}
+            {{ macros.table_panel(oR.aLinks, oR.sSelectLink, "link", oR) }}
+            {% if oR.sSelectLink %}
+                {{ macros.form_text_fields(oR.aLinkFieldsList, "link") }}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</div>
+
+</form>
+{% include "b_footer.html" %}

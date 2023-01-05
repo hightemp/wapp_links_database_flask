@@ -3,6 +3,7 @@ from peewee import *
 from playhouse.flask_utils import PaginatedQuery
 import datetime
 from baselib import *
+import random
 import pydotenv
 
 env = pydotenv.Environment()
@@ -47,6 +48,11 @@ class Link(Model):
     class Meta:
         database = db
 lClasses.append(Link)
+
+class LinkModel:
+    @classmethod
+    def fnCreate(sName, sURL, oCategory, sDesc):
+        Link.create(name=sName, category=oCategory, a_url=sURL, a_desc=sDesc)
 
 class ModelsWrapper():
     oR = {}
@@ -134,22 +140,44 @@ if (bFirstStart):
         group03 = Group.create(name='Почта')
         group04 = Group.create(name='Интернет-магазины')
 
+        aCategories = []
         category01 = Category.create(name="google", group=group01)
+        aCategories.append(category01)
 
         category0101 = Category.create(name="gmail", group=group01, parent=category01.id)
+        aCategories.append(category0101)
         category0102 = Category.create(name="api", group=group01, parent=category01.id)
+        aCategories.append(category0102)
 
         category0103 = Category.create(name="secret 1", group=group01, parent=category0101.id)
-        category0103 = Category.create(name="secret 2", group=group01, parent=category0101.id)
+        aCategories.append(category0103)
+        category0104 = Category.create(name="secret 2", group=group01, parent=category0101.id)
+        aCategories.append(category0104)
 
-        category0103 = Category.create(name="secret 3", group=group01, parent=category0102.id)
-        category0103 = Category.create(name="secret 4", group=group01, parent=category0102.id)
+        category0105 = Category.create(name="secret 3", group=group01, parent=category0102.id)
+        aCategories.append(category0105)
+        category0106 = Category.create(name="secret 4", group=group01, parent=category0102.id)
+        aCategories.append(category0106)
 
         category02 = Category.create(name="yandex", group=group03)
         category03 = Category.create(name="yandex", group=group04)
 
+        aRandLinks = [
+            "https://electronics.stackexchange.com/questions/203122/sine-to-pulse-converter-circuit-help",
+            "https://toshiba.semicon-storage.com/ap-en/semiconductor/knowledge/faq/linear_opamp/what-is-the-maximum-frequency-at-which-an-op-amp-can-be-used.html",
+            "https://huggingface.co/blog/how-to-generate",
+            "https://docs.python.org/3/library/pprint.html",
+        ]
+        aTitles = [
+            "Without interfaces, you will lack cross-media CAE",
+            "But if I'm not the same",
+            "Is it more important for something to be customer-directed?",
+        ]
         for iI in range(0, 100):
-            Link.create(name=f"google {iI}", category=category01, a_url="http://ya.ru", a_desc=f"<h1>test {iI}</h1>")
+            sURL=random.choice(aRandLinks)
+            oCat=random.choice(aCategories)
+            sTitle=random.choice(aTitles)
+            Link.create(name=sTitle, category=oCat, a_url=sURL, a_desc=f"<h1>test {iI}</h1>")
         
 
 

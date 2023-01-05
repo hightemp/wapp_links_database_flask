@@ -3,15 +3,17 @@ from peewee import *
 from playhouse.flask_utils import PaginatedQuery
 import datetime
 from baselib import *
+import pydotenv
 
-UPLOAD_PATH_REL = "static/uploads"
-UPLOAD_PATH = os.path.join(os.path.dirname(__file__), UPLOAD_PATH_REL)
-DATABASE = './wapp_Links_flask.database.db'
+env = pydotenv.Environment()
 
-__DEMO__ = True
+DATABASE = env.get('DATABASE', './wapp_links_database_flask.database.db')
+__DEMO__ = env.get('__DEMO__', True)
 
 if (__DEMO__):
-    os.unlink(DATABASE)
+    print(env.get('__DEMO__'))
+    if (os.path.exists(DATABASE)):
+        os.unlink(DATABASE)
 
 bFirstStart = not os.path.exists(DATABASE)
 db = SqliteDatabase(DATABASE)

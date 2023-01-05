@@ -17,6 +17,7 @@ if [ "$1" == "" ]; then
     cd ..
     $CFILE  --bind 0.0.0.0:5021
 elif [ "$1" == "zipapp" ]; then
+    cp .env ..
     cd ..
     python3 -m zipapp $CFILE -p "/usr/bin/env python3"
     rm ./$CFILE.database.db

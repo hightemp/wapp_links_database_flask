@@ -173,6 +173,6 @@ def fnPrepareFormFields(aFields, oKls, sSelID):
                     print("[+]", sK, oV['field_name'], oItem[oV['field_name']])
                     aFields[sK]['value'] = oItem[oV['field_name']]
                 else:
-                    print("[-]", sK, oV['field_name'], oItem[oV['field_name']])
+                    # print("[-]", sK, oV['field_name'], oItem[oV['field_name']])
                     aFields[sK]['value'] = ''
     return aFields

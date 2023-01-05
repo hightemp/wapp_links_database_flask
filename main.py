@@ -17,16 +17,10 @@ from baselib import *
 from database import *
 
 # NOTE: Константы
-UPLOAD_PATH_REL = "static/uploads"
-UPLOAD_PATH = os.path.join(os.path.dirname(__file__), UPLOAD_PATH_REL)
-DATABASE = './wapp_password_manager_flask.database.db'
-
-__DEMO__ = False
 APP_NAME=__name__
 
 # NOTE: Переменные
-bFirstStart = not os.path.isfile(DATABASE)
-app = Flask(__name__)
+app = Flask(APP_NAME)
 config = {
     # "DEBUG": True,          # some Flask specific configs
     # "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
